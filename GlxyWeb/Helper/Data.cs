@@ -42,5 +42,10 @@ namespace GlxyWeb.Helper
         {
             client.Set("Alarms/" + model.Alarm_name, model);
         }
+
+        public void EditData(AlarmModel model)
+        {
+            client.Update("Alarms/" + model.Alarm_name, model);
+        }
     }
 }

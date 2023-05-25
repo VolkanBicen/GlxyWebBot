@@ -1,4 +1,5 @@
-﻿using GlxyWeb.Models;
+﻿using GlxyWeb.Helper;
+using GlxyWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -34,10 +35,34 @@ namespace GlxyWeb.Controllers
         [HttpPost]
         public IActionResult CreateAlarm(AlarmModel model)
         {
+            var findAlarmName = _result.Any(x => x.Alarm_name.ToLower() == model.Alarm_name.ToLower());
+            if (findAlarmName)
+            {
+                ViewBag.Message = "A record with a similar name was found. Rename this record";
+                return View();
+            }
             model.Repeat = DateTime.Parse(model.Repeat).ToString("dd.MM.yyyy");
             model.Active = true;
+
             new Helper.Data().InsertData(model);
+        
             return View();
+        }
+
+        public IActionResult Edit(string alarm_name)
+        {
+            var data = _result.Find(p => p.Alarm_name == alarm_name);
+            data.Repeat = DateTime.Parse(data.Repeat).ToString("yyyy-MM-dd");
+            return View(data);
+        }
+        [HttpPost]
+        public IActionResult Edit(AlarmModel model)
+        {
+            model.Active = true;
+            model.Repeat = DateTime.Parse(model.Repeat).ToString("dd.MM.yyyy");
+           model.Message= model.Message.Trim();
+            new Helper.Data().EditData(model);
+            return RedirectToAction("Index");
         }
 
     }

@@ -3,12 +3,80 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Server-Side Pagination with DataTables</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
+</head>
+<body>
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var alarm in Model)
+            {
+                <tr>
+                    <td>@alarm.Alarm_name</td>
+                    <td>@alarm.Repeat</td>
+                    <td>@alarm.Hour</td>
+                    <td>@alarm.Message</td>
+                    <td style="@(alarm.Active == false ? "color: red;" : "color:blue")">@alarm.Active</td>
+                    <td>
+                        @if (alarm.Active)
+                        {
+                            <a style="color:red" href="@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name, status=false })">Passive</a>
+
+                        }
+                        else
+                        {
+                            <a style="color:blue" href="@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name, status=true })">Active</a>
+
+                        }
+                    </td>
+                    <td>
+                        @if (!alarm.Repeat.Equals("Everyday"))
+                        {
+                            <a href="@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name })">Edit</a>
+                        }
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+</body>
+</html>
+
+
+
+@*<!DOCTYPE html>
+<html>
+<head>
     <meta name="viewport" content="width=device-width" />
     <title>Liste Tablosu</title>
     <style>
         table {
             border-collapse: collapse;
             width: 100%;
+            text-align: left;
+            position: relative;
         }
 
         th, td {
@@ -19,6 +87,8 @@
         th {
             background-color: #4CAF50;
             color: white;
+            position: sticky;
+            top: 0;
         }
 
         tr:nth-child(even) {
@@ -32,11 +102,19 @@
         .active {
             background-color: green;
             color: white;
+            border-radius: 20px;
+        }
+
+        .edit {
+            background-color: blue;
+            color: white;
+            border-radius: 20px;
         }
 
         .inactive {
             background-color: red;
             color: white;
+            border-radius: 20px;
         }
 
         .pagination {
@@ -70,7 +148,8 @@
             <th>Hour</th>
             <th>Message</th>
             <th>Status</th>
-            <th></th>
+            <th>Change Status</th>
+            <th>Edit</th>
         </tr>
         @foreach (var alarm in Model)
         {
@@ -79,17 +158,26 @@
                 <td>@alarm.Repeat</td>
                 <td>@alarm.Hour</td>
                 <td>@alarm.Message</td>
-                <td style="@(alarm.Active == false ? "background-color: red;" : "")">@alarm.Active</td>
+                <td style="@(alarm.Active == false ? "color: red;" : "color:blue")">@alarm.Active</td>
                 <td>
                     @if (alarm.Active)
                     {
-                        <button class="inactive" onclick="toggleStatus('@alarm.Alarm_name', false)">Passive</button>
+                        <a style="color:red" href="@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name, status=false })">Passive</a>
+
                     }
                     else
                     {
-                        <button class="active" onclick="toggleStatus('@alarm.Alarm_name', true)">Active</button>
+                        <a style="color:blue" href="@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name, status=true })">Active</a>
+
                     }
                 </td>
+                <td>
+                    @if (!alarm.Repeat.Equals("Everyday"))
+                    {
+                        <a href="@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name })">Edit</a>
+                    }
+                </td>
+
             </tr>
         }
     </table>
@@ -102,7 +190,8 @@
 
     <script>
 
-          function toggleStatus(alarm_name,status) {
+
+        function toggleStatus(alarm_name, status) {
             fetch('/Home/Update?alarm_name=' + alarm_name + '&status=' + status, { method: 'POST' })
                 .then(response => response.text())
                 .then(data => {
@@ -189,4 +278,4 @@
         updatePagination();
     </script>
 </body>
-</html>
+</html>*@
