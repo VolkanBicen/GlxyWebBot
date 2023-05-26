@@ -53,7 +53,7 @@ namespace GlxyWeb.Controllers
         {
             var data = new Helper.Data().GetData().Find(p => p.Alarm_name == alarm_name);
             
-            data.Repeat = DateTime.Parse(data.Repeat).ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+            data.Repeat = DateTime.Parse(data.Repeat).ToString("yyyy.MM.dd", new CultureInfo("en-US"));
             return View(data);
 
         }
