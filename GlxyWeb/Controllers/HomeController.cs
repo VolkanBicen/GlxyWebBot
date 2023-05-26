@@ -1,7 +1,7 @@
 ﻿using GlxyWeb.Helper;
 using GlxyWeb.Models;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Globalization;
 
 namespace GlxyWeb.Controllers
 {
@@ -60,7 +60,7 @@ namespace GlxyWeb.Controllers
         public IActionResult Edit(AlarmModel model)
         {
             model.Active = true;
-            model.Repeat = DateTime.Parse(model.Repeat).ToString("dd.MM.yyyy");
+            model.Repeat = DateTime.ParseExact(model.Repeat, "yyyy.MM.dd", CultureInfo.InvariantCulture).ToString();
             model.Message= model.Message.Trim();
             new Helper.Data().EditData(model);
             return RedirectToAction("Index");
