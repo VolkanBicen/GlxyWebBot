@@ -1,4 +1,4 @@
-﻿@model GlxyWeb.Models.AlarmModel 
+﻿@model GlxyWeb.Models.AlarmModel
 
 @{
     ViewData["Title"] = "Edit Alarm";
@@ -6,24 +6,29 @@
 
 <h2>@ViewData["Title"]</h2>
 
+<html lang="en">
+<body>
 
-<form method="post" action="/Home/Edit">
-    <div class="form-group">
-        <label for="alarmTarihi">Date</label>
-        <input type="date" class="form-control" id="Repeat" name="Repeat" value="@Model.Repeat"  required>
-    </div>
-    <div class="form-group">
-        <label for="alarmSaati">Hour</label>
-        <input type="time" class="form-control" id="Hour" name="Hour" value="@Model.Hour" required>
-    </div>
-    <div class="form-group">
-        <label for="alarmAdi">Alarm Name</label>
-        <input type="text" class="form-control" id="Alarm_name" name="Alarm_name" value="@Model.Alarm_name" readonly required>
-    </div>
-    <div class="form-group">
-        <label for="alarmMesaji">Alarm Message</label>
-        <textarea class="form-control" id="Message" name="Message" rows="3" required> @Model.Message</textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Edit Alarm</button>
+    <form method="post" action="/Home/Edit">
+        <div class="form-group">
+            <label for="alarmTarihi">Date</label>
+            <input type="text" class="form-control" id="Repeat" name="Repeat" value="@Model.Repeat" required>
+        </div>
+        <div class="form-group">
+            <label for="alarmSaati">Hour</label>
+            <input type="time" class="form-control" id="Hour" name="Hour" value="@Model.Hour" required>
+        </div>
+        <div class="form-group">
+            <label for="alarmAdi">Alarm Name</label>
+            <input type="text" class="form-control" id="Alarm_name" name="Alarm_name" value="@Model.Alarm_name" readonly required>
+        </div>
+        <div class="form-group">
+            <label for="alarmMesaji">Alarm Message</label>
+            <textarea class="form-control" id="Message" name="Message" rows="3" required> @Model.Message</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Edit Alarm</button>
 
-</form>
+    </form>
+
+</body>
+</html>
