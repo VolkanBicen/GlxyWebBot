@@ -47,7 +47,7 @@
                     <td>
                         @if (!alarm.Repeat.Equals("Everyday"))
                         {
-                            <button type="submit" class="btn btn-primary btn-sm" onclick='window.location.href = "@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name })";'>Edit</button>
+                            <button type="submit" class="btn btn-primary btn-sm" onclick='location.href = "@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name })";'>Edit</button>
                             //<button type="submit" class="btn btn-primary btn-sm" onclick='window.location.href = "@Url.Action("Index", "Home")";'>Edit</button>
                             
                         }
