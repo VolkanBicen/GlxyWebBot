@@ -47,7 +47,8 @@
                     <td>
                         @if (!alarm.Repeat.Equals("Everyday"))
                         {
-                            <button type="button" class="btn btn-primary btn-sm" onclick='window.location = "@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name })";'>Edit</button>
+                            //<button type="button" class="btn btn-primary btn-sm" onclick='window.location = "@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name })";'>Edit</button>
+                            <a href="@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name })">Edit</a>
                           
                         }
                     </td>
@@ -88,7 +89,6 @@
                         console.error('Bir hata oluştu:', error);
                     })
                     .finally(() => {
-                        // İşlem tamamlandığında loading ikonunu gizle
                         document.getElementById('loadingIcon').style.display = 'none';
                     });
             }
