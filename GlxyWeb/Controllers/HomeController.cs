@@ -49,11 +49,12 @@ namespace GlxyWeb.Controllers
             return View();
         }
 
-        public IActionResult Edit(string alarm_name)
+        public IActionResult Edit()
         {
-            var data = _result.Find(p => p.Alarm_name == alarm_name);
+            var data = _result.Find(p => p.Alarm_name == "Maintenance");
             data.Repeat = DateTime.Parse(data.Repeat).ToString("yyyy-MM-dd");
             return View(data);
+
         }
         [HttpPost]
         public IActionResult Edit(AlarmModel model)
