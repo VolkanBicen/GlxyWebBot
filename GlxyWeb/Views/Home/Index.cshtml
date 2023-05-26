@@ -11,7 +11,7 @@
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
-    <table id="example" class="display" style="width:100%">
+    <table id="example"  class="display" style="width:100%;">
         <thead>
             <tr>
                 <th>Alarm Name</th>
@@ -67,7 +67,10 @@
             $(document).ready(function () {
                 $('#example').DataTable({
                     pagingType: 'full_numbers',
-                    "ordering": false
+                    "ordering": false,
+                    fixedColumns: {
+                        leftColumns: 2
+                    }
                 });
             });
 
