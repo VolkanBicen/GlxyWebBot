@@ -1,7 +1,7 @@
 ﻿using GlxyWeb.Helper;
 using GlxyWeb.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+
 
 namespace GlxyWeb.Controllers
 {
@@ -16,7 +16,7 @@ namespace GlxyWeb.Controllers
 
         public IActionResult Index()
         {
-            return View(_result.OrderBy(x => x.Hour).OrderBy(x => x.Repeat).OrderBy(x => x.Active).ToList());
+            return View(_result.OrderBy(x => x.Hour).OrderBy(x => x.Repeat).OrderBy(x => x.Active).ToList()); 
         }
 
         [HttpPost]
@@ -65,5 +65,7 @@ namespace GlxyWeb.Controllers
             return RedirectToAction("Index");
         }
 
+
     }
+
 }
