@@ -53,7 +53,7 @@ namespace GlxyWeb.Controllers
         {
             var data = _result.Find(p => p.Alarm_name == alarm_name);
             data.Repeat = DateTime.Parse(data.Repeat).ToString("yyyy-MM-dd");
-            return Content("Success");
+            return View(data);
         }
         [HttpPost]
         public IActionResult Edit(AlarmModel model)
