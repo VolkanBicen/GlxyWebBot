@@ -52,7 +52,7 @@ namespace GlxyWeb.Controllers
         public IActionResult Edit()
         {
             var data = new Helper.Data().GetData().Find(p => p.Alarm_name == "Maintenance");
-            //data.Repeat = DateTime.Parse(data.Repeat).ToString("yyyy-MM-dd");
+            data.Repeat = DateTime.Parse(data.Repeat).ToString("yyyy-MM-dd");
             return View(data);
 
         }
