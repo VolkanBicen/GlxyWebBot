@@ -47,9 +47,9 @@
                     <td>
                         @if (!alarm.Repeat.Equals("Everyday"))
                         {
-                            //<button type="button" class="btn btn-primary btn-sm" onclick='window.location = "@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name })";'>Edit</button>
-                            <a href="@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name })">Edit</a>
-                          
+                            <button type="submit" class="btn btn-primary btn-sm" onclick='window.location = "@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name })";'>Edit</button>
+                            //<a href="@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name })">Edit</a>
+                           // <button type="button" class="btn btn btn-primary btn-sm" onclick="edit('@alarm.Alarm_name')">Edit</button>
                         }
                     </td>
 
@@ -91,6 +91,23 @@
                     .finally(() => {
                         document.getElementById('loadingIcon').style.display = 'none';
                     });
+            }
+
+            function edit(alarm_name) {
+
+                fetch('/Home/Edit?alarm_name=' + alarm_name, { method: 'GET' })
+                    .then(response => response.text())
+                    .then(data => {
+                        if (data === 'Success') {
+                            location.reload();
+                        } else {
+                            alert('Durum güncellenirken bir hata oluştu.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Bir hata oluştu:', error);
+                    })
+                   
             }
         </script>
     }
