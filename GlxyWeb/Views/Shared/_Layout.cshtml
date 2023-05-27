@@ -7,6 +7,22 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GlxyWeb.styles.css" asp-append-version="true" />
+    <style>
+        #saat-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #etiket {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        #saat {
+            font-size: 36px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -29,16 +45,10 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-          @*      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CreateAlarm">Create Alarm</a>
-                        </li>
-                    </ul>
-                </div>*@
+                <div id="saat-container">
+                    <div id="etiket">Time UTC:</div>
+                    <div id="saat"></div>
+                </div>
             </div>
         </nav>
     </header>
@@ -53,6 +63,23 @@
             &copy; 2023 - GlxyWeb - <a asp-area="" asp-controller="Home" asp-action="CreateAlarm">Create Alarm</a>
         </div>
     </footer>
+    <script>
+        function updateSaat() {
+            var date = new Date();
+            var saat = date.getUTCHours();
+            var dakika = date.getUTCMinutes();
+            var saniye = date.getUTCSeconds();
+
+            saat = saat < 10 ? "0" + saat : saat;
+            dakika = dakika < 10 ? "0" + dakika : dakika;
+            saniye = saniye < 10 ? "0" + saniye : saniye;
+
+            var saatMetin = saat + ":" + dakika + ":" + saniye;
+            document.getElementById("saat").textContent = saatMetin;
+        }
+
+        setInterval(updateSaat, 1000); 
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
