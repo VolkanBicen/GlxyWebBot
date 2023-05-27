@@ -5,9 +5,29 @@
 }
 
 <h5 style="color:red">@ViewBag.Message</h5>
+<style>
+    #saat-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
+    #etiket {
+        font-size: 24px;
+        margin-right: 10px;
+    }
+
+    #saat {
+        font-size: 36px;
+    }
+</style>
 
 <form method="post" action="/Home/CreateAlarm">
+
+    <div id="saat-container">
+        <div id="etiket">Time UTC:</div>
+        <div id="saat"></div>
+    </div>
     <div class="form-group">
         <label for="alarmTarihi">Date (UTC)</label>
         <input type="date" class="form-control" id="Date" name="Date" required>
@@ -25,4 +45,23 @@
         <textarea class="form-control" id="Message" name="Message" rows="3" required></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Create Alarm</button>
+
 </form>
+<script>
+    function updateSaat() {
+        var date = new Date();
+        var saat = date.getUTCHours();
+        var dakika = date.getUTCMinutes();
+        var saniye = date.getUTCSeconds();
+
+        saat = saat < 10 ? "0" + saat : saat;
+        dakika = dakika < 10 ? "0" + dakika : dakika;
+        saniye = saniye < 10 ? "0" + saniye : saniye;
+
+        var saatMetin = saat + ":" + dakika + ":" + saniye;
+        document.getElementById("saat").textContent = saatMetin;
+    }
+
+    setInterval(updateSaat, 1000);
+
+</script>
