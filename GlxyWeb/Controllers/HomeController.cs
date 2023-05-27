@@ -13,18 +13,13 @@ namespace GlxyWeb.Controllers
         {
             _result = new Helper.Data().GetData();
         }
-
         public IActionResult Index()
         {
-            return View(_result.OrderBy(x => x.Hour).OrderBy(x => x.Repeat).OrderBy(x => x.Active).ToList()); 
+            return View(_result.Where(x=>x.Active == true).OrderBy(x => x.Hour).OrderBy(x => x.Repeat).ToList());
         }
-
-        [HttpPost]
-        public IActionResult Update(string alarm_name, bool status)
+        public IActionResult ListDisable()
         {
-            var data = _result.Find(p => p.Alarm_name == alarm_name);
-            new Helper.Data().DeleteData(data, status);
-            return Content("Success");
+            return View(_result.Where(x => x.Active == false).OrderBy(x => x.Hour).OrderBy(x => x.Repeat).ToList());
         }
 
         public IActionResult CreateAlarm()
@@ -41,17 +36,26 @@ namespace GlxyWeb.Controllers
                 ViewBag.Message = "A record with a similar name was found. Rename this record";
                 return View();
             }
-            model.Repeat = DateTime.Parse(model.Repeat).ToString("dd.MM.yyyy");
+
+            model.Message.Trim();
             model.Active = true;
 
-            new Helper.Data().InsertData(model);
-        
+            new Data().InsertData(model);
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Update(string alarm_name, bool status)
+        {
+            var data = _result.Find(p => p.Alarm_name == alarm_name);
+            new Helper.Data().DeleteData(data, status);
+            return Content("Success");
         }
 
         public IActionResult Edit(string alarm_name)
         {
-            var data = new Helper.Data().GetData().Find(p => p.Alarm_name == alarm_name);
+            var data = new Data().GetData().Find(p => p.Alarm_name == alarm_name);
+        
             return View(data);
 
         }
@@ -59,8 +63,9 @@ namespace GlxyWeb.Controllers
         public IActionResult Edit(AlarmModel model)
         {
             model.Active = true;
+            model.Message.Trim();
             model.Repeat = DateTime.Parse(model.Repeat).ToString("dd.MM.yyyy");
-            model.Message= model.Message.Trim();
+            model.Message = model.Message.Trim();
             new Helper.Data().EditData(model);
             return RedirectToAction("Index");
         }

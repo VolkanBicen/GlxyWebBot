@@ -26,31 +26,28 @@
         <tbody>
             @foreach (var alarm in Model)
             {
-                if (alarm.Active)
-                {
-                    <tr>
-                        <td>@alarm.Alarm_name</td>
+                <tr>
+                    <td>@alarm.Alarm_name</td>
+                    @if (String.IsNullOrEmpty(alarm.Repeat))
+                    {
+                        <td>@alarm.Date.ToShortDateString()</td>
+                    }
+                    else
+                    {
+                        <td>@alarm.Repeat</td>
+                    }
+                    <td>@alarm.Hour</td>
+                    <td>@alarm.Message</td>
+                    <td style="color:red">@alarm.Active</td>
+                    <td><button type="button" class="btn btn-outline-success btn-sm" onclick="toggleStatus('@alarm.Alarm_name', true)">Enable</button></td>
+                    <td>
                         @if (String.IsNullOrEmpty(alarm.Repeat))
                         {
-                            <td>@alarm.Date.ToShortDateString()</td>
+                            <button type="submit" class="btn btn-primary btn-sm" onclick='window.location.href = "@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name })";'>Edit</button>
                         }
-                        else
-                        {
-                            <td>@alarm.Repeat</td>
-                        }
-                        <td>@alarm.Hour</td>
-                        <td>@alarm.Message</td>
-                        <td style="color:blue">@alarm.Active</td>
-                        <td><button type="button" class="btn btn-outline-danger btn-sm" onclick="toggleStatus('@alarm.Alarm_name', false)">Disable</button></td>
-                        <td>
-                            @if (String.IsNullOrEmpty(alarm.Repeat))
-                            {
-                                <button type="submit" class="btn btn-primary btn-sm" onclick='window.location.href = "@Url.Action("Edit", "Home", new { alarm_name = alarm.Alarm_name })";'>Edit</button>
-                            }
-                        </td>
+                    </td>
 
-                    </tr>
-                }
+                </tr>
             }
         </tbody>
 

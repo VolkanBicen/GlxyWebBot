@@ -15,10 +15,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-CultureInfo ci = new CultureInfo("tr-TR");
-Thread.CurrentThread.CurrentCulture = ci;
-Thread.CurrentThread.CurrentUICulture = ci;
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
