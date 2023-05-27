@@ -64,7 +64,7 @@ namespace GlxyWeb.Controllers
         {
             model.Active = true;
             model.Message.Trim();
-            model.Repeat = DateTime.Parse(model.Repeat).ToString("dd.MM.yyyy");
+            
             model.Message = model.Message.Trim();
             new Helper.Data().EditData(model);
             return RedirectToAction("Index");
